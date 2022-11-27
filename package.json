@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "description": "",
   "scripts": {
-    "lint": "eslint --fix src test",
+    "lint": "eslint --fix src tests",
     "build": "tsc",
     "test": "jest"
   },

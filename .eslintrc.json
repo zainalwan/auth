@@ -19,7 +19,12 @@
     "rules": {
         "indent": [
             "error",
-            2
+            2,
+            {
+                "ignoredNodes": [
+                    "PropertyDefinition"
+                ]
+            }
         ],
         "linebreak-style": [
             "error",

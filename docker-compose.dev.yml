@@ -1,0 +1,8 @@
+services:
+  postgres:
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: auth
+      POSTGRES_USER: zain
+      POSTGRES_PASSWORD: 4875c246f0750ef79606072b7c9f5bb2

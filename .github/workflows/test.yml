@@ -22,7 +22,7 @@ jobs:
           --health-start_period 5s
 
     steps:
-      - uses: action/checkout@v3
+      - uses: actions/checkout@v3
       - run: npm ci
       - run: npm test
         env:

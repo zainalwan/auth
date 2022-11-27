@@ -1,7 +1,6 @@
 import request from 'supertest';
 import { app } from '../src/app';
 import { dataSource } from '../src/data-source';
-import { entities } from '../src/entities';
 import { User } from '../src/entities/user';
 
 describe('POST /register', () => {
@@ -14,10 +13,8 @@ describe('POST /register', () => {
   });
 
   afterEach(async () => {
-    for (const entity of entities) {
-      const repo = dataSource.getRepository(entity);
-      await repo.clear();
-    }
+      const userRepo = dataSource.getRepository(User);
+      await userRepo.clear();
   });
 
   it('valid payload', async () => {

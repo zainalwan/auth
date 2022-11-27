@@ -1,0 +1,33 @@
+name: Test
+
+on: push
+
+jobs:
+  test:
+    runs-on: ubuntu-22.04
+    container: node:16.18.1-alpine
+
+    services:
+      postgres:
+        image: postgres:15.0-alpine
+        env:
+          POSTGRES_DB: auth
+          POSTGRES_USER: zain
+          POSTGRES_PASSWORD: 4875c246f0750ef79606072b7c9f5bb2
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 3
+          --health-start_period 5s
+
+    steps:
+      - uses: action/checkout@v3
+      - run: npm ci
+      - run: npm test
+        env:
+          POSTGRES_HOST: postgres
+          POSTGRES_PORT: 5432
+          POSTGRES_DB: auth
+          POSTGRES_USER: zain
+          POSTGRES_PASSWORD: 4875c246f0750ef79606072b7c9f5bb2

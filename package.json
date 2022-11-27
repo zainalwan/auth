@@ -1,0 +1,14 @@
+{
+  "name": "auth",
+  "version": "0.0.1",
+  "description": "",
+  "scripts": {
+    "test": "jest --coverage"
+  },
+  "keywords": [
+    "auth",
+    "authentication"
+  ],
+  "author": "Zain <zainalwan4@gmail.com>",
+  "license": "UNLICENSED"
+}

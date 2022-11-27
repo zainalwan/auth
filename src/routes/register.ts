@@ -1,6 +1,8 @@
 import express, { Request, Response } from 'express';
+import { validateOrReject } from 'class-validator';
 import { dataSource } from '../data-source';
 import { User } from '../entities/user';
+import { serializeValidationError } from '../util';
 
 export const router = express.Router();
 
@@ -11,19 +13,32 @@ interface RegisterPayload {
   password: string,
 }
 
-router.post('/', (req: Request, res: Response) => {
+router.post('/', async (req: Request, res: Response) => {
   const payload: RegisterPayload = req.body;
   const userRepo = dataSource.getRepository(User);
+
   const user = new User();
   user.firstName = payload.firstName;
   user.lastName = payload.lastName;
   user.email = payload.email;
   user.password = payload.password;
-  userRepo.save(user);
 
-  res.send({
+  try {
+    await validateOrReject(user);
+  } catch (errors) {
+    return res.status(400).send({
+      data: {
+        success: false,
+        errors: errors.map(serializeValidationError),
+      },
+    });
+  }
+
+  await userRepo.save(user);
+
+  return res.send({
     data: {
-      success: true
-    }
+      success: true,
+    },
   });
 });

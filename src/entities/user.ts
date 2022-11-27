@@ -6,6 +6,14 @@ import {
   UpdateDateColumn,
   DeleteDateColumn,
 } from 'typeorm';
+import {
+  IsString,
+  IsEmail,
+  IsNotEmpty,
+  MinLength,
+  Validate,
+} from 'class-validator';
+import { EmailUnique } from '../validators/email-unique';
 
 @Entity('users')
 export class User {
@@ -18,6 +26,8 @@ export class User {
     length: 30,
     nullable: false,
   })
+  @IsNotEmpty({ message: 'firstName is required.' })
+  @IsString({ message: 'firstName must be a string.' })
   firstName: string;
 
   @Column({
@@ -25,13 +35,19 @@ export class User {
     length: 30,
     nullable: false,
   })
+  @IsNotEmpty({ message: 'lastName is required.' })
+  @IsString({ message: 'lastName must be a string.' })
   lastName: string;
 
   @Column({
     name: 'email',
     length: 50,
     nullable: false,
+    unique: true,
   })
+  @IsNotEmpty({ message: 'email is required.' })
+  @IsEmail()
+  @Validate(EmailUnique)
   email: string;
 
   @Column({
@@ -39,6 +55,8 @@ export class User {
     length: 100,
     nullable: false,
   })
+  @IsNotEmpty({ message: 'password is required.' })
+  @MinLength(12, { message: 'password must be at least 12 characters.' })
   password: string;
 
   @CreateDateColumn({

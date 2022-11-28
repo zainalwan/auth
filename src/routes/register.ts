@@ -1,5 +1,6 @@
 import express, { Request, Response } from 'express';
 import bcrypt from 'bcrypt';
+import { Repository } from 'typeorm';
 import { validateOrReject } from 'class-validator';
 import { dataSource } from '../data-source';
 import { User } from '../entities/user';
@@ -16,9 +17,9 @@ interface RegisterPayload {
 
 router.post('/', async (req: Request, res: Response) => {
   const payload: RegisterPayload = req.body;
-  const userRepo = dataSource.getRepository(User);
+  const userRepo: Repository<User> = dataSource.getRepository(User);
 
-  const user = new User();
+  const user: User = new User();
   user.firstName = payload.firstName;
   user.lastName = payload.lastName;
   user.email = payload.email;
@@ -35,7 +36,7 @@ router.post('/', async (req: Request, res: Response) => {
     });
   }
 
-  const salt = await bcrypt.genSalt(10);
+  const salt: string = await bcrypt.genSalt(10);
   user.password = await bcrypt.hash(user.password, salt);
 
   await userRepo.save(user);

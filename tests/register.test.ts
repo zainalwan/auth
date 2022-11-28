@@ -1,10 +1,11 @@
 import request from 'supertest';
+import { Repository } from 'typeorm';
 import { app } from '../src/app';
 import { dataSource } from '../src/data-source';
 import { User } from '../src/entities/user';
 
 describe('POST /register', () => {
-  const userRepo = dataSource.getRepository(User);
+  const userRepo: Repository<User> = dataSource.getRepository(User);
 
   beforeAll(async () => {
     await dataSource.initialize();
@@ -29,7 +30,7 @@ describe('POST /register', () => {
   });
 
   it('unique email', async () => {
-    const user = new User();
+    const user: User = new User();
     user.firstName = 'John';
     user.lastName = 'Doe';
     user.email = 'johndoe@example.com';
@@ -58,7 +59,9 @@ describe('POST /register', () => {
       email: 'johndoe@example.com',
       password: 'johndoepass123',
     });
-    const john = await userRepo.findOneBy({ email: 'johndoe@example.com' });
+    const john: User | null = await userRepo.findOneBy({
+      email: 'johndoe@example.com',
+    });
 
     expect(response.status).toBe(200);
     expect(response.headers['content-type']).toMatch(/json/);

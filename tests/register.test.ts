@@ -58,11 +58,12 @@ describe('POST /register', () => {
       email: 'johndoe@example.com',
       password: 'johndoepass123',
     });
+    const john = await userRepo.findOneBy({ email: 'johndoe@example.com' });
 
     expect(response.status).toBe(200);
     expect(response.headers['content-type']).toMatch(/json/);
     expect(response.body.data).toEqual({ success: true });
-    expect(await userRepo.findOneBy({ email: 'johndoe@example.com'}))
-      .toBeTruthy();
+    expect(john).toBeTruthy();
+    expect(john?.password).not.toBe('johndoepass123');
   });
 });

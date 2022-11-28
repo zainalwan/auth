@@ -1,4 +1,5 @@
 import express, { Request, Response } from 'express';
+import bcrypt from 'bcrypt';
 import { validateOrReject } from 'class-validator';
 import { dataSource } from '../data-source';
 import { User } from '../entities/user';
@@ -33,6 +34,10 @@ router.post('/', async (req: Request, res: Response) => {
       },
     });
   }
+
+  const salt = await bcrypt.genSalt(10);
+  user.password = await bcrypt.hash(user.password, salt);
+  console.log(user.password);
 
   await userRepo.save(user);
 

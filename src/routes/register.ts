@@ -5,15 +5,9 @@ import { validateOrReject } from 'class-validator';
 import { dataSource } from '../dataSource';
 import { User } from '../entities/user';
 import { serializeValidationError } from '../util';
+import { RegisterPayload } from '../interfaces/registerPayload';
 
 export const router = express.Router();
-
-interface RegisterPayload {
-  firstName: string,
-  lastName: string,
-  email: string,
-  password: string,
-}
 
 router.post('/', async (req: Request, res: Response) => {
   const payload: RegisterPayload = req.body;

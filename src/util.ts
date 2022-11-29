@@ -1,9 +1,5 @@
 import { ValidationError } from 'class-validator';
-
-interface ValidationErrorMessage {
-  field: string,
-  messages?: string[],
-}
+import { ValidationErrorMessage } from './interfaces/validationErrorMessage';
 
 export const serializeValidationError = (err: ValidationError):
   ValidationErrorMessage => {

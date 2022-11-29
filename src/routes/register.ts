@@ -2,7 +2,7 @@ import express, { Request, Response } from 'express';
 import bcrypt from 'bcrypt';
 import { Repository } from 'typeorm';
 import { validateOrReject } from 'class-validator';
-import { dataSource } from '../data-source';
+import { dataSource } from '../dataSource';
 import { User } from '../entities/user';
 import { serializeValidationError } from '../util';
 

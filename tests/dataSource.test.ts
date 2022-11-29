@@ -1,4 +1,4 @@
-import { dataSource } from '../src/data-source';
+import { dataSource } from '../src/dataSource';
 
 describe('postgres', () => {
   it('should connected', async () => {

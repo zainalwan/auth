@@ -2,7 +2,7 @@ import {
   ValidatorConstraint,
   ValidatorConstraintInterface,
 } from 'class-validator';
-import { dataSource } from '../data-source';
+import { dataSource } from '../dataSource';
 import { User } from '../entities/user';
 
 @ValidatorConstraint({ name: 'unique', async: true })

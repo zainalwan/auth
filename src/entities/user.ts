@@ -13,7 +13,7 @@ import {
   MinLength,
   Validate,
 } from 'class-validator';
-import { EmailUnique } from '../validators/email-unique';
+import { EmailUnique } from '../validators/emailUnique';
 
 @Entity('users')
 export class User {

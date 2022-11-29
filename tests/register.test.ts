@@ -1,7 +1,7 @@
 import request from 'supertest';
 import { Repository } from 'typeorm';
 import { app } from '../src/app';
-import { dataSource } from '../src/data-source';
+import { dataSource } from '../src/dataSource';
 import { User } from '../src/entities/user';
 
 describe('POST /register', () => {

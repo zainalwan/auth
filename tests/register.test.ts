@@ -27,7 +27,7 @@ describe('POST /register', () => {
     user.lastName = 'Doe';
     user.email = 'johndoe@example.com';
     user.password = 'johndoepass123';
-    userRepo.save(user);
+    await userRepo.save(user);
 
     const response = await request(app).post('/register').send({
       firstName: 'The Fake',

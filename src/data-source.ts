@@ -14,5 +14,5 @@ export const dataSource: DataSource = new DataSource({
   entities: entities,
   migrations: migrations,
   synchronize: false,
-  logging: true,
+  logging: false,
 });

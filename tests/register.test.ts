@@ -7,17 +7,9 @@ import { User } from '../src/entities/user';
 describe('POST /register', () => {
   const userRepo: Repository<User> = dataSource.getRepository(User);
 
-  beforeAll(async () => {
-    await dataSource.initialize();
-  });
-
-  afterAll(async () => {
-    await dataSource.destroy();
-  });
-
-  afterEach(async () => {
-    await userRepo.clear();
-  });
+  beforeAll(async () => await dataSource.initialize());
+  afterAll(async () => await dataSource.destroy());
+  afterEach(async () => await userRepo.clear());
 
   it('invalid payload', async () => {
     const response = await request(app).post('/register').send();
